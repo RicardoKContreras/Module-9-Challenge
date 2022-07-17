@@ -3,7 +3,7 @@ const fs = require('fs');
 const generateReadMe = require('./src/page-template.js');
 
 const init = () => {
-  return  inquirer.prompt([
+  return inquirer.prompt([
       {
         type: 'input',
         name: 'name',
@@ -81,7 +81,8 @@ const init = () => {
                 return true;
             }
             else {
-                return false;
+                return '';
+            
             }
         }
       },
@@ -99,78 +100,68 @@ const init = () => {
                 return false;
             }
         }
-      }
-    ]);
-};
-
-
-
-const promptReadMe = () => {
-    console.log(`
-    ============ 
-    Adding ReadMe specific questions
-    `);
-    return inquirer.prompt([
-        {
+      },
+      {
+        type: 'checkbox',
+        name: 'license',
+        message: 'Which license would you like to display?',
+        choices: ['MIT', 'Mozilla', 'Apache']
+        
+        
+    },
+    
+    {
+        
             type: 'checkbox',
-            name: 'license',
-            message: 'Which license would you like to display?',
-            choices: ['MIT', 'Mozilla', 'Apache']
-        },
-        {
-            type: 'input',
-            name: 'githubUserName',
-            message: 'What is your Github Username?',
-            validate: githubInput => {
-                if (githubInput) {
-                    return true;
-                }
-                else {
-                    console.log('Please type your Github Username!');
-                    return false;
-                }
+            name: 'licensecolor',
+            message: 'What color would you like for your  license badge?',
+            choices: ['blue', 'green', 'red'],
+            
+         
+    },
+    {
+        type: 'input',
+        name: 'githubUserName',
+        message: 'What is your Github Username?',
+        validate: githubInput => {
+            if (githubInput) {
+                return true;
             }
-        },
-        {
-            type: 'input',
-            name: 'email address',
-            message: 'What is your email address?',
-            validate: emailInput => {
-                if (emailInput) {
-                    return true;
-                }
-                else {
-                    console.log('Please type your email address');
-                    return false;
-                }
+            else {
+                console.log('Please type your Github Username!');
+                return false;
             }
         }
+    },
+    {
+        type: 'input',
+        name: 'emailaddress',
+        message: 'What is your email address?',
+        validate: emailInput => {
+            if (emailInput) {
+                return true;
+            }
+            else {
+                console.log('Please type your email address');
+                return false;
+            }
+        }
+    }
     ]);
 };
 
 init()
+
 .then(init => {
-    const pageREADME = generateReadMe(init, promptReadMe);
-
-//const writeFile = require('./potential-enigma/Develop/utils/generate-site.js');
-// TODO: Create an array of questions for user input
-// TODO: Create a function to write README file
-//function writeToFile(fileName, data) {}
-
-
-//questions();
-
-
-fs.writeFile('README.md', pageREADME, err => {
+    const pageREADME = generateReadMe(init);
+fs.writeFile('./utils/README.md', pageREADME, err => {
     if (err) throw err;
-
-    console.log('Readme file complete!')
-    //console.log(generateReadMe(name));
-        
+  console.log('README file created!');
     
 });
-})
-.then(ReadMeAnswers => console.log(ReadMeAnswers));
+});
+
+
 
 
 
