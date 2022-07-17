@@ -34,3 +34,12 @@ THEN I am taken to the corresponding section of the README
 
 Screencastify link: https://drive.google.com/file/d/1L_LWHTO15yuX3MZdizn2-aNWvm6X9Z6V/view
 
+
+
+
+![README file sample](https://user-images.githubusercontent.com/104086686/179382946-52ea6cdc-c505-41f9-8549-d2b3811326a8.png)
+
+
+
+
+
